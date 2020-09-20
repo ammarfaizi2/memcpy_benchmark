@@ -7,7 +7,7 @@ const LEN_REG                = "rdx";
 const COUNTER_REG            = "rcx";
 const TMP_REG                = ["r9", "r9d", "r9w", "r9b"];
 const MAX_VEC_REGISTER_BIT   = 512;
-const MAX_VEC_REGISTER_NUM   = 32;
+const MAX_VEC_REGISTER_NUM   = 16;
 const MAX_VEC_REGISTER_BYTES = MAX_VEC_REGISTER_NUM / 8;
 const MAX_BRANCH_BYTES       = MAX_VEC_REGISTER_BIT * MAX_VEC_REGISTER_BYTES;
 
@@ -18,6 +18,11 @@ const VEC_BYTES = [
   "xmm" => 16
 ];
 
+const APPROP_MOV = [
+  "zmm" => "vmovdqu64",
+  "ymm" => "vmovdqu",
+  "xmm" => "vmovdqu",
+];
 
 $j        = MAX_BRANCH_BYTES;
 $loop     = "\n";
@@ -28,6 +33,7 @@ $greatestVecReg = [
   256 => "ymm",
   128 => "xmm",
 ][MAX_VEC_REGISTER_BIT];
+
 
 $mm = MAX_VEC_REGISTER_NUM;
 
@@ -76,13 +82,55 @@ function generate_branches(string &$branches, int $j, int &$mm)
       }
       for ($i = 0; $i < $mm; $i++) { 
         $branches .= sprintf(
-          "  vmovdqu64 %s%d, [%s + %s + (%d * %d)]\n",
+          "  %s %s%d, [%s + %s + (%d * %d)]\n",
+          APPROP_MOV[$curReg],
           $curReg, $i, SRC_REG, COUNTER_REG, VEC_BYTES[$curReg], $i
         );
       }
       for ($i = 0; $i < $mm; $i++) { 
         $branches .= sprintf(
-          "  vmovdqu64 [%s + %s + (%d * %d)], %s%d\n",
+          "  %s [%s + %s + (%d * %d)], %s%d\n",
+          APPROP_MOV[$curReg],
+          DST_REG, COUNTER_REG, VEC_BYTES[$curReg], $i, $curReg, $i
+        );
+      }
+      break;
+
+    case 256:
+      if ($j < 32) {
+        $mm = 1;
+        $curReg = "xmm";
+      } else
+      if ($j < 64) {
+        $mm = ($j <= 32) ? 1 : 2;
+        $curReg = "ymm";
+      } else {
+        $curReg = "ymm";
+      }
+
+      for ($i = 0; $i < $mm; $i++) {
+        $branches .= sprintf(
+          "  prefetcht1 [%s + %s + (%d * %d)]\n",
+          SRC_REG, COUNTER_REG, VEC_BYTES[$curReg], $i
+        );
+      }
+      for ($i = 0; $i < $mm; $i++) { 
+        $branches .= sprintf(
+          "  prefetcht1 [%s + %s + (%d * %d)]\n",
+          DST_REG, COUNTER_REG, VEC_BYTES[$curReg], $i
+        );
+      }
+      for ($i = 0; $i < $mm; $i++) { 
+        $branches .= sprintf(
+          "  %s %s%d, [%s + %s + (%d * %d)]\n",
+          APPROP_MOV[$curReg],
+          $curReg, $i, SRC_REG, COUNTER_REG, VEC_BYTES[$curReg], $i
+        );
+      }
+      for ($i = 0; $i < $mm; $i++) { 
+        $branches .= sprintf(
+          "  %s [%s + %s + (%d * %d)], %s%d\n",
+          APPROP_MOV[$curReg],
           DST_REG, COUNTER_REG, VEC_BYTES[$curReg], $i, $curReg, $i
         );
       }

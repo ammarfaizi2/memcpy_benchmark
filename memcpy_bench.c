@@ -13,20 +13,36 @@
 #include <sys/time.h>
 
 #define MEM_ALLOC (1024 * 1024 * 512)
-#define START_BENCHMARK do {                              \
-    printf("Initializing source data...\n");              \
-    fflush(stdout);                                       \
-    memset(src, 'a', MEM_ALLOC);                          \
-    start_time = get_timestamp();                         \
-  } while (0)
+#define TEST_COUNT 10
 
-#define END_BENCHMARK do {                                \
-    end_time = get_timestamp();                           \
-    double secs = (end_time - start_time) / 1000000.0L;   \
-    printf("%0.10lf seconds\n", secs);                    \
-    printf("Verificating copied data...\n");              \
-    fflush(stdout);                                       \
-    assert(!memcmp(dst, src, MEM_ALLOC));                 \
+#define START_BENCHMARK(LABEL) do {                         \
+    uint32_t i = 0;                                         \
+    total = min = max = 0;                                  \
+    chk_##LABEL:                                            \
+    src = (char *)malloc(MEM_ALLOC);                        \
+    dst = (char *)malloc(MEM_ALLOC);                        \
+    printf("Initializing source data...\n");                \
+    fflush(stdout);                                         \
+    memset(src, 'a', MEM_ALLOC);                            \
+    start_time = get_timestamp();
+
+
+#define END_BENCHMARK(LABEL)                                \
+    end_time = get_timestamp();                             \
+    double secs = (end_time - start_time) / 1000000.0L;     \
+    printf("%0.10lf seconds\n", secs);                      \
+    printf("Verificating copied data...\n");                \
+    fflush(stdout);                                         \
+    total += secs;                                          \
+    min = i ? (min > secs ? secs : min) : secs;             \
+    max = i ? (max < secs ? secs : max) : secs;             \
+    assert(!memcmp(dst, src, MEM_ALLOC));                   \
+    free(dst); free(src);                                   \
+    if (i++ < TEST_COUNT) goto chk_##LABEL;                 \
+    printf("Max\t: %0.10lf\n", max);                        \
+    printf("Min\t: %0.10lf\n", min);                        \
+    printf("Avg\t: %0.10lf\n", total / TEST_COUNT);         \
+    printf("Total\t: %0.10lf\n", total);                    \
   } while (0)
 
 void *memcpy_avx512(void *dst, const void *src, size_t len);
@@ -57,30 +73,30 @@ main(int argc, char *argv[])
     return 1;
   }
 
+  double total, min, max;
+  char *dst = NULL, *src = NULL;
   timestamp_t start_time, end_time;
-  char *dst = (char *)malloc(MEM_ALLOC);
-  char *src = (char *)malloc(MEM_ALLOC);
 
   switch (argv[1][0]) {
     case '1':
       printf("Benchmarking memcpy...\n");
-      START_BENCHMARK;
+      START_BENCHMARK(memcpy);
       memcpy(dst, src, MEM_ALLOC);
-      END_BENCHMARK;
+      END_BENCHMARK(memcpy);
       break;
 
     case '2':
       printf("Benchmarking memcpy_avx512...\n");
-      START_BENCHMARK;
+      START_BENCHMARK(memcpy_avx512);
       memcpy_avx512(dst, src, MEM_ALLOC);
-      END_BENCHMARK;
+      END_BENCHMARK(memcpy_avx512);
       break;
 
     case '3':
       printf("Benchmarking memcpy_movsb...\n");
-      START_BENCHMARK;
+      START_BENCHMARK(memcpy_movsb);
       memcpy_movsb(dst, src, MEM_ALLOC);
-      END_BENCHMARK;
+      END_BENCHMARK(memcpy_movsb);
       break;
 
     default:
