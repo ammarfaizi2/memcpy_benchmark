@@ -20,4 +20,3 @@ echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_gover
 
 # License
 This is free and unencumbered software released into the public domain, thanks.
-
