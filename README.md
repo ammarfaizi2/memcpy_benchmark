@@ -3,8 +3,8 @@ Which is the best `memcpy`?
 
 # How to use?
 ```sh
-# Install nasm and gcc.
-sudo apt install nasm gcc -y;
+# Install make, nasm and gcc.
+sudo apt install make nasm gcc -y;
 
 # Clone the repository.
 git clone https://github.com/ammarfaizi2/memcpy_benchmark;
