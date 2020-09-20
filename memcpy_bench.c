@@ -1,6 +1,7 @@
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
+ * @licence https://github.com/ammarfaizi2/memcpy_benchmark
  *
  * Benchmark memcpy.
  */
@@ -45,6 +46,7 @@
     printf("Total\t: %0.10lf\n", total);                    \
   } while (0)
 
+void *memcpy_avx256(void *dst, const void *src, size_t len);
 void *memcpy_avx512(void *dst, const void *src, size_t len);
 void *memcpy_movsb(void *dst, const void *src, size_t len);
 
@@ -86,13 +88,20 @@ main(int argc, char *argv[])
       break;
 
     case '2':
+      printf("Benchmarking memcpy_avx256...\n");
+      START_BENCHMARK(memcpy_avx256);
+      memcpy_avx256(dst, src, MEM_ALLOC);
+      END_BENCHMARK(memcpy_avx256);
+      break;
+
+    case '3':
       printf("Benchmarking memcpy_avx512...\n");
       START_BENCHMARK(memcpy_avx512);
       memcpy_avx512(dst, src, MEM_ALLOC);
       END_BENCHMARK(memcpy_avx512);
       break;
 
-    case '3':
+    case '4':
       printf("Benchmarking memcpy_movsb...\n");
       START_BENCHMARK(memcpy_movsb);
       memcpy_movsb(dst, src, MEM_ALLOC);
