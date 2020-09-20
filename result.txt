@@ -1,25 +1,29 @@
 
 Vendor: AuthenticAMD
-CPU Model: AMD A8-6410 APU
+Cache size: 2048 KB
+CPU: AMD A8-6410 APU with AMD Radeon R5 Graphics 2GHz
 CL Flush size: 64
 Cache alignment: 64
 Address sizes: 40 bits physical, 48 bits virtual
 Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good acc_power nopl nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq monitor ssse3 cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt topoext perfctr_nb bpext ptsc perfctr_llc cpb hw_pstate ssbd vmmcall bmi1 xsaveopt arat npt lbrv svm_lock nrip_save tsc_scale flushbyasid decodeassists pausefilter pfthreshold overflow_recov
 
 [Built in memcpy from libc]
-Max: 0.6098920000
-Min: 0.5299680000
-Avg: 0.6040262000
-Total: 6.0402620000
-
-[rep movsb]
-Max: 0.5060080000
-Min: 0.4417960000
-Avg: 0.4946712000
-Total: 4.9467120000
+Max: 0.5977080000
+Min: 0.5463650000
+Avg: 0.6221282000
+Total: 6.2212820000
 
 [AVX]
-Max: 0.4503880000
-Min: 0.4326910000
-Avg: 0.4842349000
-Total: 4.8423490000
+Max: 0.4631730000
+Min: 0.4471380000
+Avg: 0.4966940000
+Total: 4.9669400000
+
+[AVX-512]
+CPU is not supported.
+
+[rep movsb]
+Max: 0.4626260000
+Min: 0.4450290000
+Avg: 0.4969657000
+Total: 4.9696570000
