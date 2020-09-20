@@ -54,7 +54,7 @@ typedef unsigned long long timestamp_t;
 
 static void
 usage(char *app) {
-  printf("Usage: %s 1|2|3\n", app);
+  printf("Usage: %s 1|2|3|4\n", app);
 }
 
 static timestamp_t
