@@ -6,7 +6,7 @@ const SRC_REG                = "rsi";
 const LEN_REG                = "rdx";
 const COUNTER_REG            = "rcx";
 const TMP_REG                = ["r9", "r9d", "r9w", "r9b"];
-const MAX_VEC_REGISTER_BIT   = 512;
+const MAX_VEC_REGISTER_BIT   = 256;
 const MAX_VEC_REGISTER_NUM   = 16;
 const MAX_VEC_REGISTER_BYTES = MAX_VEC_REGISTER_NUM / 8;
 const MAX_BRANCH_BYTES       = MAX_VEC_REGISTER_BIT * MAX_VEC_REGISTER_BYTES;
@@ -206,7 +206,7 @@ printf(<<<CODE
 ;
 
 [section .text]
-global memcpy_avx512
+global memcpy_avx%d
 ;
 ; void *memcpy_avx512(void *dst, const void *src, size_t len);
 ;
@@ -214,14 +214,16 @@ global memcpy_avx512
 ; %s = src
 ; %s = len
 ;
-memcpy_avx512:
+memcpy_avx%d:
   xor %s, %s
   mov %s, %s
 ._loop:
 CODE,
+MAX_VEC_REGISTER_BIT,
 DST_REG,
 SRC_REG,
 LEN_REG,
+MAX_VEC_REGISTER_BIT,
 COUNTER_REG, COUNTER_REG, RET_REG, SRC_REG);
 printf("%s", $loop);
 printf(<<<CODE
