@@ -7,7 +7,7 @@ Which is the best `memcpy`?
 sudo apt install nasm gcc -y;
 
 # Clone the repository.
-git clone https://github.com/ammarfaizisudo nice -n -20 ./memcpy_benchmark;
+git clone https://github.com/ammarfaizi2/memcpy_benchmark;
 cd memcpy_benchmark;
 make;
 

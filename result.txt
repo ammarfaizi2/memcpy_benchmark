@@ -30,8 +30,6 @@ Total: 4.9696570000
 
 
 
-
-
 Vendor: GenuineIntel
 CPU: Intel Xeon Platinum 8269CY (2.5GHz)
 Cache size: 36608 KB
@@ -41,25 +39,25 @@ Address sizes: 46 bits physical, 48 bits virtual
 Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat avx512_vnni
 
 [Built in memcpy from libc]
-Max: 0.3496500000
-Min: 0.3485650000
-Avg: 0.3837956000
-Total: 3.8379560000
+Max: 0.3533460000
+Min: 0.3494360000
+Avg: 0.3852886000
+Total: 3.8528860000
 
 [AVX]
-Max: 0.3770440000
-Min: 0.3463880000
-Avg: 0.3843867000
-Total: 3.8438670000
+Max: 0.2725200000
+Min: 0.2710710000
+Avg: 0.2986639000
+Total: 2.9866390000
 
 [AVX-512]
-Max: 0.2969090000
-Min: 0.2959490000
-Avg: 0.3260326000
-Total: 3.2603260000
+Max: 0.2874750000
+Min: 0.2853970000
+Avg: 0.3150474000
+Total: 3.1504740000
 
 [rep movsb]
-Max: 0.3083220000
-Min: 0.3028410000
-Avg: 0.3347047000
-Total: 3.3470470000
+Max: 0.3043180000
+Min: 0.3020090000
+Avg: 0.3333147000
+Total: 3.3331470000
