@@ -16,6 +16,8 @@ memcpy_avx512:
   xor rcx, rcx
   mov rax, rsi
 ._loop:
+  cmp rcx, 2048
+  jmp .jge_2048        ; If the length is greater than or equal to 2048
   cmp rcx, 1024
   jmp .jge_1024        ; If the length is greater than or equal to 1024
   cmp rcx, 512
@@ -38,6 +40,140 @@ memcpy_avx512:
   jge .jge_2         ; If the length is greater than or equal to 2
   cmp rcx, 1
   jge .jge_1         ; If the length is greater than or equal to 1
+  jmp .epi
+.jge_2048:
+  prefetcht1 [rsi + rcx + (64 * 0)]
+  prefetcht1 [rsi + rcx + (64 * 1)]
+  prefetcht1 [rsi + rcx + (64 * 2)]
+  prefetcht1 [rsi + rcx + (64 * 3)]
+  prefetcht1 [rsi + rcx + (64 * 4)]
+  prefetcht1 [rsi + rcx + (64 * 5)]
+  prefetcht1 [rsi + rcx + (64 * 6)]
+  prefetcht1 [rsi + rcx + (64 * 7)]
+  prefetcht1 [rsi + rcx + (64 * 8)]
+  prefetcht1 [rsi + rcx + (64 * 9)]
+  prefetcht1 [rsi + rcx + (64 * 10)]
+  prefetcht1 [rsi + rcx + (64 * 11)]
+  prefetcht1 [rsi + rcx + (64 * 12)]
+  prefetcht1 [rsi + rcx + (64 * 13)]
+  prefetcht1 [rsi + rcx + (64 * 14)]
+  prefetcht1 [rsi + rcx + (64 * 15)]
+  prefetcht1 [rsi + rcx + (64 * 16)]
+  prefetcht1 [rsi + rcx + (64 * 17)]
+  prefetcht1 [rsi + rcx + (64 * 18)]
+  prefetcht1 [rsi + rcx + (64 * 19)]
+  prefetcht1 [rsi + rcx + (64 * 20)]
+  prefetcht1 [rsi + rcx + (64 * 21)]
+  prefetcht1 [rsi + rcx + (64 * 22)]
+  prefetcht1 [rsi + rcx + (64 * 23)]
+  prefetcht1 [rsi + rcx + (64 * 24)]
+  prefetcht1 [rsi + rcx + (64 * 25)]
+  prefetcht1 [rsi + rcx + (64 * 26)]
+  prefetcht1 [rsi + rcx + (64 * 27)]
+  prefetcht1 [rsi + rcx + (64 * 28)]
+  prefetcht1 [rsi + rcx + (64 * 29)]
+  prefetcht1 [rsi + rcx + (64 * 30)]
+  prefetcht1 [rsi + rcx + (64 * 31)]
+  prefetcht1 [rdi + rcx + (64 * 0)]
+  prefetcht1 [rdi + rcx + (64 * 1)]
+  prefetcht1 [rdi + rcx + (64 * 2)]
+  prefetcht1 [rdi + rcx + (64 * 3)]
+  prefetcht1 [rdi + rcx + (64 * 4)]
+  prefetcht1 [rdi + rcx + (64 * 5)]
+  prefetcht1 [rdi + rcx + (64 * 6)]
+  prefetcht1 [rdi + rcx + (64 * 7)]
+  prefetcht1 [rdi + rcx + (64 * 8)]
+  prefetcht1 [rdi + rcx + (64 * 9)]
+  prefetcht1 [rdi + rcx + (64 * 10)]
+  prefetcht1 [rdi + rcx + (64 * 11)]
+  prefetcht1 [rdi + rcx + (64 * 12)]
+  prefetcht1 [rdi + rcx + (64 * 13)]
+  prefetcht1 [rdi + rcx + (64 * 14)]
+  prefetcht1 [rdi + rcx + (64 * 15)]
+  prefetcht1 [rdi + rcx + (64 * 16)]
+  prefetcht1 [rdi + rcx + (64 * 17)]
+  prefetcht1 [rdi + rcx + (64 * 18)]
+  prefetcht1 [rdi + rcx + (64 * 19)]
+  prefetcht1 [rdi + rcx + (64 * 20)]
+  prefetcht1 [rdi + rcx + (64 * 21)]
+  prefetcht1 [rdi + rcx + (64 * 22)]
+  prefetcht1 [rdi + rcx + (64 * 23)]
+  prefetcht1 [rdi + rcx + (64 * 24)]
+  prefetcht1 [rdi + rcx + (64 * 25)]
+  prefetcht1 [rdi + rcx + (64 * 26)]
+  prefetcht1 [rdi + rcx + (64 * 27)]
+  prefetcht1 [rdi + rcx + (64 * 28)]
+  prefetcht1 [rdi + rcx + (64 * 29)]
+  prefetcht1 [rdi + rcx + (64 * 30)]
+  prefetcht1 [rdi + rcx + (64 * 31)]
+  vmovdqu64 zmm0, [rsi + rcx + (64 * 0)]
+  vmovdqu64 zmm1, [rsi + rcx + (64 * 1)]
+  vmovdqu64 zmm2, [rsi + rcx + (64 * 2)]
+  vmovdqu64 zmm3, [rsi + rcx + (64 * 3)]
+  vmovdqu64 zmm4, [rsi + rcx + (64 * 4)]
+  vmovdqu64 zmm5, [rsi + rcx + (64 * 5)]
+  vmovdqu64 zmm6, [rsi + rcx + (64 * 6)]
+  vmovdqu64 zmm7, [rsi + rcx + (64 * 7)]
+  vmovdqu64 zmm8, [rsi + rcx + (64 * 8)]
+  vmovdqu64 zmm9, [rsi + rcx + (64 * 9)]
+  vmovdqu64 zmm10, [rsi + rcx + (64 * 10)]
+  vmovdqu64 zmm11, [rsi + rcx + (64 * 11)]
+  vmovdqu64 zmm12, [rsi + rcx + (64 * 12)]
+  vmovdqu64 zmm13, [rsi + rcx + (64 * 13)]
+  vmovdqu64 zmm14, [rsi + rcx + (64 * 14)]
+  vmovdqu64 zmm15, [rsi + rcx + (64 * 15)]
+  vmovdqu64 zmm16, [rsi + rcx + (64 * 16)]
+  vmovdqu64 zmm17, [rsi + rcx + (64 * 17)]
+  vmovdqu64 zmm18, [rsi + rcx + (64 * 18)]
+  vmovdqu64 zmm19, [rsi + rcx + (64 * 19)]
+  vmovdqu64 zmm20, [rsi + rcx + (64 * 20)]
+  vmovdqu64 zmm21, [rsi + rcx + (64 * 21)]
+  vmovdqu64 zmm22, [rsi + rcx + (64 * 22)]
+  vmovdqu64 zmm23, [rsi + rcx + (64 * 23)]
+  vmovdqu64 zmm24, [rsi + rcx + (64 * 24)]
+  vmovdqu64 zmm25, [rsi + rcx + (64 * 25)]
+  vmovdqu64 zmm26, [rsi + rcx + (64 * 26)]
+  vmovdqu64 zmm27, [rsi + rcx + (64 * 27)]
+  vmovdqu64 zmm28, [rsi + rcx + (64 * 28)]
+  vmovdqu64 zmm29, [rsi + rcx + (64 * 29)]
+  vmovdqu64 zmm30, [rsi + rcx + (64 * 30)]
+  vmovdqu64 zmm31, [rsi + rcx + (64 * 31)]
+  vmovdqu64 [rdi + rcx + (64 * 0)], zmm0
+  vmovdqu64 [rdi + rcx + (64 * 1)], zmm1
+  vmovdqu64 [rdi + rcx + (64 * 2)], zmm2
+  vmovdqu64 [rdi + rcx + (64 * 3)], zmm3
+  vmovdqu64 [rdi + rcx + (64 * 4)], zmm4
+  vmovdqu64 [rdi + rcx + (64 * 5)], zmm5
+  vmovdqu64 [rdi + rcx + (64 * 6)], zmm6
+  vmovdqu64 [rdi + rcx + (64 * 7)], zmm7
+  vmovdqu64 [rdi + rcx + (64 * 8)], zmm8
+  vmovdqu64 [rdi + rcx + (64 * 9)], zmm9
+  vmovdqu64 [rdi + rcx + (64 * 10)], zmm10
+  vmovdqu64 [rdi + rcx + (64 * 11)], zmm11
+  vmovdqu64 [rdi + rcx + (64 * 12)], zmm12
+  vmovdqu64 [rdi + rcx + (64 * 13)], zmm13
+  vmovdqu64 [rdi + rcx + (64 * 14)], zmm14
+  vmovdqu64 [rdi + rcx + (64 * 15)], zmm15
+  vmovdqu64 [rdi + rcx + (64 * 16)], zmm16
+  vmovdqu64 [rdi + rcx + (64 * 17)], zmm17
+  vmovdqu64 [rdi + rcx + (64 * 18)], zmm18
+  vmovdqu64 [rdi + rcx + (64 * 19)], zmm19
+  vmovdqu64 [rdi + rcx + (64 * 20)], zmm20
+  vmovdqu64 [rdi + rcx + (64 * 21)], zmm21
+  vmovdqu64 [rdi + rcx + (64 * 22)], zmm22
+  vmovdqu64 [rdi + rcx + (64 * 23)], zmm23
+  vmovdqu64 [rdi + rcx + (64 * 24)], zmm24
+  vmovdqu64 [rdi + rcx + (64 * 25)], zmm25
+  vmovdqu64 [rdi + rcx + (64 * 26)], zmm26
+  vmovdqu64 [rdi + rcx + (64 * 27)], zmm27
+  vmovdqu64 [rdi + rcx + (64 * 28)], zmm28
+  vmovdqu64 [rdi + rcx + (64 * 29)], zmm29
+  vmovdqu64 [rdi + rcx + (64 * 30)], zmm30
+  vmovdqu64 [rdi + rcx + (64 * 31)], zmm31
+  add rcx, 2048
+  sub rdx, 2048
+  test rdx, rdx
+  jnz ._loop
   jmp .epi
 .jge_1024:
   prefetcht1 [rsi + rcx + (64 * 0)]

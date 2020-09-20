@@ -6,8 +6,8 @@ const SRC_REG                = "rsi";
 const LEN_REG                = "rdx";
 const COUNTER_REG            = "rcx";
 const TMP_REG                = ["r9", "r9d", "r9w", "r9b"];
-const MAX_VEC_REGISTER_BIT   = 256;
-const MAX_VEC_REGISTER_NUM   = 16;
+const MAX_VEC_REGISTER_BIT   = 512;
+const MAX_VEC_REGISTER_NUM   = 32;
 const MAX_VEC_REGISTER_BYTES = MAX_VEC_REGISTER_NUM / 8;
 const MAX_BRANCH_BYTES       = MAX_VEC_REGISTER_BIT * MAX_VEC_REGISTER_BYTES;
 
