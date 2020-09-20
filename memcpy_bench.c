@@ -33,11 +33,11 @@
     double secs = (end_time - start_time) / 1000000.0L;     \
     printf("%0.10lf seconds\n", secs);                      \
     printf("Verificating copied data...\n");                \
+    assert(!memcmp(dst, src, MEM_ALLOC));                   \
     fflush(stdout);                                         \
     total += secs;                                          \
     min = i ? (min > secs ? secs : min) : secs;             \
     max = i ? (max < secs ? secs : max) : secs;             \
-    assert(!memcmp(dst, src, MEM_ALLOC));                   \
     free(dst); free(src);                                   \
     if (i++ < TEST_COUNT) goto chk_##LABEL;                 \
     printf("Max\t: %0.10lf\n", max);                        \
