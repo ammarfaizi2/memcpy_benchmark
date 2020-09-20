@@ -11,7 +11,7 @@ git clone https://github.com/ammarfaizisudo nice -n -20 ./memcpy_benchmark;
 cd memcpy_benchmark;
 make;
 
-# Force CPU to use max freq.
+# Allow CPU to use max freq.
 echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor;
 
 # Run the benchmark.
