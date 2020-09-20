@@ -34,6 +34,7 @@ Total: 4.9696570000
 
 Vendor: GenuineIntel
 CPU: Intel Xeon Platinum 8269CY (2.5GHz)
+Cache size: 36608 KB
 CL Flush size: 64
 Cache alignment: 64
 Address sizes: 46 bits physical, 48 bits virtual
