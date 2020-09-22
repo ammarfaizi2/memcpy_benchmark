@@ -1,7 +1,7 @@
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
- * @licence https://github.com/ammarfaizi2/memcpy_benchmark
+ * @link https://github.com/ammarfaizi2/memcpy_benchmark
  *
  * Benchmark memcpy.
  */
@@ -12,6 +12,8 @@
 #include <string.h>
 #include <assert.h>
 #include <sys/time.h>
+
+#include "libs/memcpy_multithread.h"
 
 #define MEM_ALLOC (1024 * 1024 * 512)
 #define TEST_COUNT 10
@@ -106,6 +108,15 @@ main(int argc, char *argv[])
       START_BENCHMARK(memcpy_movsb);
       memcpy_movsb(dst, src, MEM_ALLOC);
       END_BENCHMARK(memcpy_movsb);
+      break;
+
+    case '5':
+      memcpy_mt_init(4);
+      printf("Benchmarking memcpy_mt_exec...\n");
+      START_BENCHMARK(memcpy_mt);
+      memcpy_mt_exec(dst, src, MEM_ALLOC);
+      END_BENCHMARK(memcpy_mt);
+      memcpy_mt_destroy();
       break;
 
     default:
