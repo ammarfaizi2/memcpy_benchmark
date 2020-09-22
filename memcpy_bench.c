@@ -15,7 +15,7 @@
 
 #include "libs/memcpy_multithread.h"
 
-#define MEM_ALLOC (1024 * 1024 * 512)
+#define MEM_ALLOC (1024 * 1024 * 128)
 #define TEST_COUNT 10
 
 #define START_BENCHMARK(LABEL) do {                         \
@@ -112,6 +112,7 @@ main(int argc, char *argv[])
 
     case '5':
       memcpy_mt_init(4);
+      memcpy_mt_set_callback(memcpy_avx256);
       printf("Benchmarking memcpy_mt_exec...\n");
       START_BENCHMARK(memcpy_mt);
       memcpy_mt_exec(dst, src, MEM_ALLOC);
